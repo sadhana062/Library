@@ -1,0 +1,33 @@
+#include <iostream>
+#include <vector>
+using namespace std;
+
+struct Log {
+    string type;
+    string detail;
+};
+
+class Tracker {
+    vector<Log> logs;
+public:
+    void addLog(string type, string detail) {
+        logs.push_back({type, detail});
+    }
+    void removeLog(string detail) {
+        for (auto it = logs.begin(); it != logs.end(); ++it)
+            if (it->detail == detail) { logs.erase(it); break; }
+    }
+    void searchLog(string type) {
+        for (auto& log : logs)
+            if (log.type == type) cout << log.detail << endl;
+    }
+};
+
+int main() {
+    Tracker t;
+    t.addLog("Workout", "Morning Jog");
+    t.addLog("Nutrition", "Protein Shake");
+    t.searchLog("Workout");
+    t.removeLog("Morning Jog");
+    return 0;
+}
