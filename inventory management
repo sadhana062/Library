@@ -1,0 +1,17 @@
+#include <iostream>
+#include <vector>
+using namespace std;
+
+struct Product {
+    string name;
+    int stock;
+    double price;
+};
+
+int main() {
+    vector<Product> inventory;
+    inventory.push_back({"Laptop", 10, 75000});
+    inventory.push_back({"Phone", 25, 25000});
+    for (auto &p : inventory) cout << p.name << " " << p.stock << " " << p.price << endl;
+    return 0;
+}
