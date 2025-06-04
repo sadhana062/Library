@@ -1,0 +1,47 @@
+#include <iostream>
+#include <vector>
+using namespace std;
+
+class MenuItem {
+protected:
+    string name;
+    double price;
+    int calories;
+public:
+    MenuItem(string n, double p, int c) : name(n), price(p), calories(c) {}
+    virtual void display() = 0;
+};
+
+class Appetizer : public MenuItem {
+public:
+    Appetizer(string n, double p, int c) : MenuItem(n, p, c) {}
+    void display() {
+        cout << "Appetizer: " << name << " $" << price << " " << calories << " cal\n";
+    }
+};
+
+class Entree : public MenuItem {
+public:
+    Entree(string n, double p, int c) : MenuItem(n, p, c) {}
+    void display() {
+        cout << "Entree: " << name << " $" << price << " " << calories << " cal\n";
+    }
+};
+
+class Dessert : public MenuItem {
+public:
+    Dessert(string n, double p, int c) : MenuItem(n, p, c) {}
+    void display() {
+        cout << "Dessert: " << name << " $" << price << " " << calories << " cal\n";
+    }
+};
+
+int main() {
+    vector<MenuItem*> menu;
+    menu.push_back(new Appetizer("Spring Rolls", 5.5, 150));
+    menu.push_back(new Entree("Grilled Chicken", 12.0, 400));
+    menu.push_back(new Dessert("Ice Cream", 4.0, 200));
+    for (auto item : menu) item->display();
+    for (auto item : menu) delete item;
+    return 0;
+}
