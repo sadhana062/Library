@@ -1,0 +1,39 @@
+#include <iostream>
+#include <vector>
+#include <string>
+using namespace std;
+
+class Vehicle {
+protected:
+    string model;
+public:
+    Vehicle(string m) : model(m) {}
+    virtual void rent(int days) = 0;
+};
+
+class Car : public Vehicle {
+public:
+    Car(string m) : Vehicle(m) {}
+    void rent(int days) { cout << "Car " << model << " rented for " << days << " days." << endl; }
+};
+
+class Truck : public Vehicle {
+public:
+    Truck(string m) : Vehicle(m) {}
+    void rent(int days) { cout << "Truck " << model << " rented for " << days << " days." << endl; }
+};
+
+class Motorcycle : public Vehicle {
+public:
+    Motorcycle(string m) : Vehicle(m) {}
+    void rent(int days) { cout << "Motorcycle " << model << " rented for " << days << " days." << endl; }
+};
+
+int main() {
+    vector<Vehicle*> rentals;
+    rentals.push_back(new Car("Honda Civic"));
+    rentals.push_back(new Truck("Ford F-150"));
+    rentals.push_back(new Motorcycle("Yamaha R15"));
+    for (auto v : rentals) v->rent(3);
+    return 0;
+}
