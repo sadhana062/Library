@@ -1,0 +1,64 @@
+#include <iostream>
+#include <vector>
+#include <string>
+using namespace std;
+
+class Item {
+protected:
+    string title, author;
+public:
+    Item(string t, string a) : title(t), author(a) {}
+    virtual void display() = 0;
+    string getTitle() { return title; }
+};
+
+class Book : public Item {
+public:
+    Book(string t, string a) : Item(t, a) {}
+    void display() { cout << "Book: " << title << " by " << author << endl; }
+};
+
+class Journal : public Item {
+public:
+    Journal(string t, string a) : Item(t, a) {}
+    void display() { cout << "Journal: " << title << " by " << author << endl; }
+};
+
+class ConferenceProceeding : public Item {
+public:
+    ConferenceProceeding(string t, string a) : Item(t, a) {}
+    void display() { cout << "Conference Proceeding: " << title << " by " << author << endl; }
+};
+
+class Library {
+    vector<Item*> items;
+public:
+    void addItem(Item* item) { items.push_back(item); }
+    void removeItem(string title) {
+        for (auto it = items.begin(); it != items.end(); ++it) {
+            if ((*it)->getTitle() == title) {
+                items.erase(it);
+                break;
+            }
+        }
+    }
+    void searchItem(string title) {
+        for (auto& item : items)
+            if (item->getTitle() == title) item->display();
+    }
+    void displayAll() {
+        for (auto& item : items) item->display();
+    }
+};
+
+int main() {
+    Library lib;
+    lib.addItem(new Book("C++ Primer", "Lippman"));
+    lib.addItem(new Journal("AI Research", "Smith"));
+    lib.addItem(new ConferenceProceeding("ICML 2023", "Lee"));
+    lib.displayAll();
+    lib.searchItem("AI Research");
+    lib.removeItem("AI Research");
+    lib.displayAll();
+    return 0;
+}
