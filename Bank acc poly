@@ -1,0 +1,45 @@
+#include <iostream>
+#include <vector>
+using namespace std;
+
+class Account {
+protected:
+    double balance;
+public:
+    Account(double b) : balance(b) {}
+    virtual void deposit(double amt) { balance += amt; }
+    virtual void withdraw(double amt) { if (amt <= balance) balance -= amt; }
+    virtual void display() = 0;
+};
+
+class Savings : public Account {
+public:
+    Savings(double b) : Account(b) {}
+    void display() { cout << "Savings Balance: " << balance << endl; }
+};
+
+class Checking : public Account {
+public:
+    Checking(double b) : Account(b) {}
+    void display() { cout << "Checking Balance: " << balance << endl; }
+};
+
+class CreditCard : public Account {
+public:
+    CreditCard(double b) : Account(b) {}
+    void deposit(double amt) {}
+    void withdraw(double amt) { balance += amt; }
+    void display() { cout << "Credit Balance Owed: " << balance << endl; }
+};
+
+int main() {
+    vector<Account*> accs;
+    accs.push_back(new Savings(5000));
+    accs.push_back(new Checking(3000));
+    accs.push_back(new CreditCard(10000));
+    accs[0]->deposit(2000);
+    accs[1]->withdraw(1000);
+    accs[2]->withdraw(500);
+    for (auto acc : accs) acc->display();
+    return 0;
+}
