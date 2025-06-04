@@ -1,0 +1,38 @@
+#include <iostream>
+#include <vector>
+using namespace std;
+
+class Product {
+protected:
+    string name;
+public:
+    Product(string n) : name(n) {}
+    virtual void display() = 0;
+};
+
+class Book : public Product {
+public:
+    Book(string n) : Product(n) {}
+    void display() { cout << "Book: " << name << endl; }
+};
+
+class Electronic : public Product {
+public:
+    Electronic(string n) : Product(n) {}
+    void display() { cout << "Electronic: " << name << endl; }
+};
+
+class Clothing : public Product {
+public:
+    Clothing(string n) : Product(n) {}
+    void display() { cout << "Clothing: " << name << endl; }
+};
+
+int main() {
+    vector<Product*> catalog;
+    catalog.push_back(new Book("C++ Guide"));
+    catalog.push_back(new Electronic("Smartphone"));
+    catalog.push_back(new Clothing("Jacket"));
+    for (auto p : catalog) p->display();
+    return 0;
+}
