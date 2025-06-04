@@ -1,0 +1,32 @@
+#include <iostream>
+#include <vector>
+using namespace std;
+
+class Employee {
+protected:
+    string name;
+public:
+    Employee(string n) : name(n) {}
+    virtual double pay() = 0;
+};
+
+class FullTime : public Employee {
+public:
+    FullTime(string n) : Employee(n) {}
+    double pay() { return 50000; }
+};
+
+class PartTime : public Employee {
+public:
+    PartTime(string n) : Employee(n) {}
+    double pay() { return 20000; }
+};
+
+int main() {
+    vector<Employee*> emp;
+    emp.push_back(new FullTime("Alice"));
+    emp.push_back(new PartTime("Bob"));
+    for (auto e : emp) cout << e->pay() << endl;
+    for (auto e : emp) delete e;
+    return 0;
+}
