@@ -1,0 +1,36 @@
+#include <iostream>
+#include <vector>
+using namespace std;
+
+class Music {
+protected:
+    string title;
+public:
+    Music(string t) : title(t) {}
+    virtual void play() = 0;
+};
+
+class Genre : public Music {
+public:
+    Genre(string t) : Music(t) {}
+    void play() {
+        cout << "Playing genre: " << title << endl;
+    }
+};
+
+class Artist : public Music {
+public:
+    Artist(string t) : Music(t) {}
+    void play() {
+        cout << "Playing artist: " << title << endl;
+    }
+};
+
+int main() {
+    vector<Music*> library;
+    library.push_back(new Genre("Rock"));
+    library.push_back(new Artist("A.R. Rahman"));
+    for (auto m : library) m->play();
+    for (auto m : library) delete m;
+    return 0;
+}
