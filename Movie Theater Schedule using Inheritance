@@ -1,0 +1,37 @@
+#include <iostream>
+#include <vector>
+using namespace std;
+
+class Movie {
+protected:
+    string title;
+    double price;
+public:
+    Movie(string t, double p) : title(t), price(p) {}
+    virtual void show() = 0;
+};
+
+class Movie2D : public Movie {
+public:
+    Movie2D(string t, double p) : Movie(t, p) {}
+    void show() {
+        cout << "2D Movie: " << title << " $" << price << endl;
+    }
+};
+
+class Movie3D : public Movie {
+public:
+    Movie3D(string t, double p) : Movie(t, p) {}
+    void show() {
+        cout << "3D Movie: " << title << " $" << price << endl;
+    }
+};
+
+int main() {
+    vector<Movie*> schedule;
+    schedule.push_back(new Movie2D("The Matrix", 150));
+    schedule.push_back(new Movie3D("Avatar", 250));
+    for (auto m : schedule) m->show();
+    for (auto m : schedule) delete m;
+    return 0;
+}
