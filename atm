@@ -1,0 +1,28 @@
+#include <iostream>
+using namespace std;
+
+int main() {
+    int pin = 1234, enteredPin, attempts = 0;
+    double balance = 10000;
+    while (attempts < 3) {
+        cin >> enteredPin;
+        if (enteredPin == pin) break;
+        else attempts++;
+    }
+    if (attempts == 3) return 0;
+    int choice;
+    do {
+        cout << "1. Withdraw\n2. Deposit\n3. Check Balance\n4. Exit\n";
+        cin >> choice;
+        if (choice == 1) {
+            double amt; cin >> amt;
+            if (amt <= balance) balance -= amt;
+        } else if (choice == 2) {
+            double amt; cin >> amt;
+            if (amt > 0) balance += amt;
+        } else if (choice == 3) {
+            cout << "Balance: " << balance << endl;
+        }
+    } while (choice != 4);
+    return 0;
+}
