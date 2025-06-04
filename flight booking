@@ -1,0 +1,43 @@
+#include <iostream>
+#include <vector>
+using namespace std;
+
+class Flight {
+protected:
+    string type;
+    int seats;
+public:
+    Flight(string t, int s) : type(t), seats(s) {}
+    virtual void bookSeat() {
+        if (seats > 0) seats--;
+    }
+    virtual void display() = 0;
+};
+
+class Economy : public Flight {
+public:
+    Economy(int s) : Flight("Economy", s) {}
+    void display() { cout << type << " Seats Left: " << seats << endl; }
+};
+
+class Business : public Flight {
+public:
+    Business(int s) : Flight("Business", s) {}
+    void display() { cout << type << " Seats Left: " << seats << endl; }
+};
+
+class FirstClass : public Flight {
+public:
+    FirstClass(int s) : Flight("First Class", s) {}
+    void display() { cout << type << " Seats Left: " << seats << endl; }
+};
+
+int main() {
+    vector<Flight*> flights;
+    flights.push_back(new Economy(100));
+    flights.push_back(new Business(50));
+    flights.push_back(new FirstClass(10));
+    flights[2]->bookSeat();
+    for (auto f : flights) f->display();
+    return 0;
+}
