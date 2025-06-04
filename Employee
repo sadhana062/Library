@@ -1,0 +1,46 @@
+#include <iostream>
+#include <vector>
+using namespace std;
+
+class Employee {
+protected:
+    string name;
+public:
+    Employee(string n) : name(n) {}
+    virtual double calculatePay() = 0;
+    virtual void display() = 0;
+};
+
+class FullTime : public Employee {
+    double salary;
+public:
+    FullTime(string n, double s) : Employee(n), salary(s) {}
+    double calculatePay() { return salary; }
+    void display() { cout << "Full-Time: " << name << " Pay: " << salary << endl; }
+};
+
+class PartTime : public Employee {
+    int hours;
+    double rate;
+public:
+    PartTime(string n, int h, double r) : Employee(n), hours(h), rate(r) {}
+    double calculatePay() { return hours * rate; }
+    void display() { cout << "Part-Time: " << name << " Pay: " << calculatePay() << endl; }
+};
+
+class Contractor : public Employee {
+    double contractFee;
+public:
+    Contractor(string n, double f) : Employee(n), contractFee(f) {}
+    double calculatePay() { return contractFee; }
+    void display() { cout << "Contractor: " << name << " Pay: " << contractFee << endl; }
+};
+
+int main() {
+    vector<Employee*> emps;
+    emps.push_back(new FullTime("Amit", 50000));
+    emps.push_back(new PartTime("Neha", 20, 400));
+    emps.push_back(new Contractor("Ravi", 30000));
+    for (auto e : emps) e->display();
+    return 0;
+}
