@@ -1,0 +1,41 @@
+#include <iostream>
+#include <vector>
+using namespace std;
+
+class Room {
+protected:
+    string type;
+    bool reserved;
+public:
+    Room(string t) : type(t), reserved(false) {}
+    virtual void reserve() { reserved = true; }
+    virtual void display() = 0;
+};
+
+class Single : public Room {
+public:
+    Single() : Room("Single") {}
+    void display() { cout << type << " Room - " << (reserved ? "Reserved" : "Available") << endl; }
+};
+
+class Double : public Room {
+public:
+    Double() : Room("Double") {}
+    void display() { cout << type << " Room - " << (reserved ? "Reserved" : "Available") << endl; }
+};
+
+class Suite : public Room {
+public:
+    Suite() : Room("Suite") {}
+    void display() { cout << type << " Room - " << (reserved ? "Reserved" : "Available") << endl; }
+};
+
+int main() {
+    vector<Room*> rooms;
+    rooms.push_back(new Single());
+    rooms.push_back(new Double());
+    rooms.push_back(new Suite());
+    rooms[1]->reserve();
+    for (auto r : rooms) r->display();
+    return 0;
+}
