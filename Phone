@@ -1,0 +1,12 @@
+#include <iostream>
+#include <map>
+using namespace std;
+
+int main() {
+    map<string, string> phonebook;
+    phonebook["Alice"] = "1234567890";
+    phonebook["Bob"] = "9876543210";
+    for (auto &entry : phonebook)
+        cout << entry.first << ": " << entry.second << endl;
+    return 0;
+}
