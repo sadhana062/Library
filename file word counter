@@ -1,0 +1,13 @@
+#include <iostream>
+#include <fstream>
+#include <sstream>
+using namespace std;
+
+int main() {
+    ifstream file("input.txt");
+    string word;
+    int count = 0;
+    while (file >> word) count++;
+    cout << "Word count: " << count << endl;
+    return 0;
+}
