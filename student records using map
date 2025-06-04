@@ -1,0 +1,16 @@
+#include <iostream>
+#include <map>
+using namespace std;
+
+int main() {
+    map<int, string> students;
+    students[101] = "Rahul";
+    students[102] = "Sneha";
+    students[103] = "Kiran";
+    for (auto& s : students)
+        cout << s.first << ": " << s.second << endl;
+    students.erase(102);
+    if (students.count(101))
+        cout << "Found: " << students[101] << endl;
+    return 0;
+}
