@@ -1,0 +1,42 @@
+#include <iostream>
+#include <vector>
+#include <string>
+using namespace std;
+
+struct MenuItem {
+    string name;
+    string category;
+    double price;
+};
+
+class Menu {
+    vector<MenuItem> items;
+public:
+    void addItem(string name, string category, double price) {
+        items.push_back({name, category, price});
+    }
+    void removeItem(string name) {
+        for (auto it = items.begin(); it != items.end(); ++it)
+            if (it->name == name) { items.erase(it); break; }
+    }
+    void updatePrice(string name, double newPrice) {
+        for (auto& item : items)
+            if (item.name == name) item.price = newPrice;
+    }
+    void display() {
+        for (auto& item : items)
+            cout << item.category << ": " << item.name << " - Rs." << item.price << endl;
+    }
+};
+
+int main() {
+    Menu menu;
+    menu.addItem("Pizza", "Main Course", 250);
+    menu.addItem("Soup", "Starter", 120);
+    menu.addItem("Ice Cream", "Dessert", 90);
+    menu.display();
+    menu.updatePrice("Pizza", 270);
+    menu.removeItem("Soup");
+    menu.display();
+    return 0;
+}
