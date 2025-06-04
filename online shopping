@@ -1,0 +1,35 @@
+#include <iostream>
+#include <vector>
+using namespace std;
+
+struct Item {
+    string name;
+    double price;
+};
+
+class Cart {
+    vector<Item> items;
+public:
+    void addItem(string name, double price) {
+        if (price > 0) items.push_back({name, price});
+    }
+    void removeItem(string name) {
+        for (auto it = items.begin(); it != items.end(); ++it)
+            if (it->name == name) { items.erase(it); break; }
+    }
+    void viewCart() {
+        for (auto& item : items)
+            cout << item.name << " - Rs." << item.price << endl;
+    }
+};
+
+int main() {
+    Cart cart;
+    cart.addItem("Laptop", 50000);
+    cart.addItem("Mouse", 700);
+    cart.viewCart();
+    cart.removeItem("Mouse");
+    cart.viewCart();
+    return 0;
+}
+
