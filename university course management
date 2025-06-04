@@ -1,0 +1,43 @@
+#include <iostream>
+#include <vector>
+using namespace std;
+
+class Course {
+protected:
+    string name;
+    int enrolled;
+public:
+    Course(string n) : name(n), enrolled(0) {}
+    virtual void enroll() { enrolled++; }
+    virtual void display() = 0;
+};
+
+class Lecture : public Course {
+public:
+    Lecture(string n) : Course(n) {}
+    void display() { cout << "Lecture: " << name << " Enrolled: " << enrolled << endl; }
+};
+
+class Lab : public Course {
+public:
+    Lab(string n) : Course(n) {}
+    void display() { cout << "Lab: " << name << " Enrolled: " << enrolled << endl; }
+};
+
+class Seminar : public Course {
+public:
+    Seminar(string n) : Course(n) {}
+    void display() { cout << "Seminar: " << name << " Enrolled: " << enrolled << endl; }
+};
+
+int main() {
+    vector<Course*> courses;
+    courses.push_back(new Lecture("Math"));
+    courses.push_back(new Lab("Physics Lab"));
+    courses.push_back(new Seminar("AI Ethics"));
+    courses[0]->enroll();
+    courses[1]->enroll();
+    courses[2]->enroll();
+    for (auto c : courses) c->display();
+    return 0;
+}
